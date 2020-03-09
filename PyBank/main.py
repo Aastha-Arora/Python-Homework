@@ -7,7 +7,7 @@ total_months = 0
 total_net = 0
 change_list = []
 greatest_inc = [" ", 0]
-greatest_dec = [" ", 0]
+greatest_dec = [" ", 999999999]
 
 
 with open(filepath, 'r') as csvfile:
@@ -17,19 +17,7 @@ with open(filepath, 'r') as csvfile:
 
 	total_months = 1
 	total_net = int(first_row[1])
-
-	second_row = next(reader)
-	total_months += 1
-	total_net += int(second_row[1])
-	net_change = int(second_row[1]) - int(first_row[1])
-	change_list.append(net_change)
-	greatest_inc[0] = second_row[0]
-	greatest_inc[1] = net_change
-
-	greatest_dec[0] = second_row[0]
-	greatest_dec[1] = net_change
-
-	current_row_pl = int(second_row[1])
+	current_row_pl = int(first_row[1])
 
 	for row in reader:
 		total_months += 1
@@ -47,9 +35,7 @@ with open(filepath, 'r') as csvfile:
 		current_row_pl = int(row[1])
 
 
-sum = sum(change_list)
-count = len(change_list)
-average_change = sum/count
+average_change = sum(change_list)/len(change_list)
 
 result = (
 		f"Financial Analysis \n"
