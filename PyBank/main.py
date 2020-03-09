@@ -17,12 +17,12 @@ with open(filepath, 'r') as csvfile:
 
 	total_months = 1
 	total_net = int(first_row[1])
-	current_row_pl = int(first_row[1])
+	prev_month = int(first_row[1])
 
 	for row in reader:
 		total_months += 1
 		total_net += int(row[1])
-		net_change = int(row[1]) - current_row_pl
+		net_change = int(row[1]) - prev_month
 		change_list.append(net_change)
 		if (net_change > greatest_inc[1]):
 			greatest_inc[0] = row[0]
@@ -32,7 +32,7 @@ with open(filepath, 'r') as csvfile:
 			greatest_dec[0] = row[0]
 			greatest_dec[1] = net_change
 
-		current_row_pl = int(row[1])
+		prev_month = int(row[1])
 
 
 average_change = sum(change_list)/len(change_list)
